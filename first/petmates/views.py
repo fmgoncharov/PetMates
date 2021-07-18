@@ -74,7 +74,7 @@ def registration(request):
     return render(request, 'registration.html', context)
 
 
-def ban():
+def ban(request):
     return redirect('/')
 
 
