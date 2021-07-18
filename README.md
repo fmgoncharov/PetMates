@@ -20,9 +20,11 @@
 
 ```
 git clone https://github.com/fmgoncharov/PetMates
-virtualenv —python=python3 venv
+cd PetMates
+virtualenv --python=python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
+cd first
 python manage.py migrate
 python manage.py runserver
 ```
