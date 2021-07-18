@@ -1,0 +1,13 @@
+<header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'index'%}">Главная</a></li>
+        {% if logged_in %}
+            <li class="right" style="width: 9%"><a href="{% url 'logout'%}">Выйти</a></li>
+        {% else %}
+            <li class="right"><a href="{% url 'login'%}">Авторизация</a></li>
+            <li class="right"><a href="{% url 'registration'%}">Регистрация</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+</header>

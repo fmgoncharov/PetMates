@@ -1,94 +1,113 @@
 <!DOCTYPE html>
 <html lang="ru">
+{% load static %}
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <meta charset="UTF-8">
     <title>PetMates</title>
-    <style>
-.slidecontainer {
-  width: 100%;
-}
-
-.slider {
-  -webkit-appearance: none;
-  width: 25%;
-  height: 30px;
-  border-radius: 5px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #04AA6D;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #04AA6D;
-  cursor: pointer;
-}
-</style>
 </head>
+{% include "header.html" %}
+{% if logged_in %}
+{% if pref_filled %}
 <body>
-    <form method="post"> {% csrf_token %}
-      {% for word in word_choices %}
-        <p>{{word.name_}}:
-        <select name={{word.name_}}>
-            <option disabled selected>Выберите</option>
-            {% for option in word.options_ %}
-            <option value={{option}}>{{option}}</option>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Порода</th>
+      <th scope="col">Точность</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for dog in best_dogs %}
+    <tr>
+      <th scope="row">{{dog.rank_}}</th>
+      <td>{{dog.breed_}}</td>
+      <td>{{dog.accuracy_}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="container">
+    <input type="hidden" name="type" value="2">
+    <form method="post" class="row g-3"> {% csrf_token %}
+        <label for="breed" class="form-label">Выберите интересующую породу:
+        <select required class="form-select" id="breed" name="breed">
+            <option disabled>Выберите</option>
+            {% for dog in best_dogs %}
+            <option value="{{dog.breed_}}">{{dog.breed_}}</option>
             {% endfor %}
-        </select></p>
-      {% endfor %}
-      {% for num in numerical_choices %}
-        <div class="slidecontainer">
-            <label for={{num.box_id_}}> {{num.name_}} </label>
-            <input type="range" min={{num.min_}} max={{num.max_}} value={{num.mid_}} id={{num.box_id_}} class="slider">
-            Value: <span id={{nun.span_id_}}></span>
-        </div>
-
-        <script>
-        var slider = document.getElementById("{{num.box_id_}}");
-        var output = document.getElementById("{{num.span_id_}}");
-        output.innerHTML = slider.value;
-
-        slider.oninput = function() {
-          output.innerHTML = this.value;
-        }
-        </script>
-      {% endfor %}
-
-        <h1>Round Range Slider</h1>
-
-        <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="1000">
-          Value: <span id="2000"></span>
-        </div>
-
-        <script>
-        var slider = document.getElementById({{a}});
-        var output = document.getElementById({{b}});
-        output.innerHTML = slider.value;
-
-        slider.oninput = function() {
-          output.innerHTML = this.value;
-        }
-        </script>
-      <input type="submit" value="Готово">
+        </select></label>
+        <input type="submit" class="btn btn-primary" value="Найти">
     </form>
+</div>
+<hr>
+<a href="{% url 'preferences'%}"><button>Изменить предпочтения</button></a>
 </body>
+
+{% else %}
+
+<body>
+    <div class="box" style="width: 1200px;">
+        <fieldset>
+            <legend style="font-size: 36px;">PetMates</legend>
+            <p>
+                Проводите общественные голосования и участвуйте в них!
+                <br>
+                Узнайте настоящее мнение общественности по разным вопросам!
+            </p>
+            <div class="half-width" style="border-right: 1px solid var(--black);">
+                <span style="font-size: 28px;">Почему именно мы?</span>
+                <ul>
+                    <li>Мы всегда выполняем работу хорошо</li>
+                    <li>Мы не боимся собственных ошибок</li>
+                    <li>Мы уважаем мнение клиента</li>
+                    <li>Мы любим свою работу</li>
+                </ul>
+            </div>
+            <div class="half-width">
+                Заполните форму с вашими предпочтениями <a href="{% url 'preferences'%}">Форма</a>
+                <br>
+                PASS <a href="">PASS</a>
+            </div>
+        </fieldset>
+    </div>
+    <div style="width: 600px; height: 400px; padding: 10px;"></div>
+</body>
+
+{% endif %}
+
+{% else %}
+
+<body>
+    <div class="box" style="width: 1200px;">
+        <fieldset>
+            <legend style="font-size: 36px;">PetMates</legend>
+            <p>
+                Проводите общественные голосования и участвуйте в них!
+                <br>
+                Узнайте настоящее мнение общественности по разным вопросам!
+            </p>
+            <div class="half-width" style="border-right: 1px solid var(--black);">
+                <span style="font-size: 28px;">Почему именно мы?</span>
+                <ul>
+                    <li>Мы всегда выполняем работу хорошо</li>
+                    <li>Мы не боимся собственных ошибок</li>
+                    <li>Мы уважаем мнение клиента</li>
+                    <li>Мы любим свою работу</li>
+                </ul>
+            </div>
+            <div class="half-width">
+                Впервые с нами? <a href="{% url 'registration'%}">Зарегестрируйтесь</a>
+                <br>
+                Есть аккаунт? <a href="{% url 'login'%}">Войти</a>
+            </div>
+        </fieldset>
+    </div>
+    <div id="map" style="width: 600px; height: 400px; padding: 10px;"></div>
+</body>
+
+{% endif %}
+{% include "footer.html" %}
 </html>

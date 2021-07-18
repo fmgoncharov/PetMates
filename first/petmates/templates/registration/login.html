@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <meta charset="UTF-8">
+    <title>PetMates</title>
+</head>
+{% include "header.html" %}
+<body>
+<form class="box" method="POST"> {% csrf_token %}
+    <fieldset>
+        <legend>Авторизация</legend>
+        <input type="text" name="username" id="username-id" placeholder="Логин" required>
+        <input type="password" name="password" id="password-id" placeholder="Пароль" required>
+        <div class="half-width">
+            <button type="submit">Войти</button>
+        </div>
+    </fieldset>
+</form>
+</body>
+{% include "footer.html" %}
+</html>

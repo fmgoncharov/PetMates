@@ -1,0 +1,314 @@
+:root {
+        --pink: rgb(234, 178, 203);
+        --lilac: rgb(217, 220, 251);
+        --black: #111;
+        --violet: #9999FF;
+        --sexy-color-check-pls: rgb(0, 178, 203);
+    }
+
+    header ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: var(--pink);
+    }
+
+    header li {
+      float: left;
+      width: 18%;
+    }
+
+    header li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 28px 32px;
+      text-decoration: none;
+      font-family: "PT Sans", sans-serif;
+      font-size: 1.5em;
+      color: var(--black);
+    }
+
+    header li a:hover {
+      background-color: var(--black);
+      color: var(--lilac);
+    }
+
+    header li.right {
+        float: right;
+    }
+
+    .logo {
+        width: 10%;
+        color: var(--pink);
+    }
+
+    li.logo b {
+        position: absolute;
+        left: 50%;
+        top: 4%;
+        font-size: 56px;
+        font-family: "PT Sans Narrow", sans-serif;
+        transform: translate(-50%,-50%);
+        border: 8px solid var(--violet);
+        background-color: var(--lilac);
+        color: var(--violet);
+        height: 66px;
+        padding: 6px;
+        padding-top: 0px;
+        margin-top: 4px;
+    }
+
+    footer {
+        position: fixed; /* Фиксированное положение */
+        left: 0; bottom: 0; /* Левый нижний угол */
+        padding: 10px; /* Поля вокруг текста */
+        background: var(--pink); /* Цвет фона */
+        color: var(--black); /* Цвет текста */
+        width: 100%; /* Ширина слоя */
+        font-size: 150%;
+    }
+
+    footer div {
+        padding-left: 20px;
+        width: 100%;
+        background: var(--pink); /* Цвет фона */
+        position: fixed; /* Абсолютное позиционирование */
+        bottom: 10px;
+        left: 0;
+    }
+
+    footer img {
+        height: 35px;
+        position: relative; /* Абсолютное позиционирование */
+        top: 10px; /* Положение от нижнего края */
+    }
+
+    footer span {
+        position: fixed; /* Абсолютное позиционирование */
+        right: 20px; /* Положение от нижнего края */
+        bottom: 10px; /* Положение от нижнего края */
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: var(--lilac);
+        font-family: "PT Sans", sans-serif;
+    }
+
+    .box {
+        width: 400px;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        transform: translate(-50%,-50%);
+        background: var(--pink);
+        text-align: center;
+    }
+
+    .box fieldset {
+        padding: 5px;
+        border: 1px solid var(--black);
+        border-radius: 5px;
+    }
+
+    .box fieldset legend {
+        color: var(--black);
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .box fieldset.age {
+        padding: 9px;
+        margin: auto;
+        width: 200px;
+    }
+
+    .box fieldset.age legend {
+        text-transform: capitalize;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .box input[type="text"], .box input[type="password"], .box input[type="email"] {
+        border: 0;
+        background-color: var(--pink);
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        border: 2px solid var(--black);
+        padding: 14px 10px;
+        outline: none;
+        width: 200px;
+        color: var(--black);
+        border-radius: 24px;
+        transition: 0.25s;
+    }
+
+    ::placeholder {
+        color: var(--black);
+    }
+
+    .box input[type="text"]:focus, .box input[type="password"]:focus, .box input[type="email"]:focus {
+        border-color: #9999FF;
+    }
+
+    .half-width {
+        display: inline-block;
+        margin-right: -4px;
+        width: 40%;
+        vertical-align: middle;
+        margin: 15px auto;
+        margin-bottom: 10px;
+    }
+
+    button {
+        font-family: "PT Sans", sans-serif;
+        font-size: 14px;
+        border: none;
+        background: none;
+        display: block;
+        text-align: center;
+        padding: 10px 6px;
+        outline: none;
+        color: var(--black);
+        border-radius: 12px;
+        transition: 0.25s;
+        cursor: pointer;
+        position: relative;
+        width: 88%;
+        top: 50%;
+        left: 6%;
+        background-color: var(--violet);
+        box-shadow: 0 6px #999;
+        outline: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--sexy-color-check-pls);
+    }
+
+    button:hover {
+        opacity: 0.85;
+    }
+
+    button:active {
+        opacity: 1;
+        box-shadow: 0 2px #666;
+        transform: translateY(4px);
+    }
+
+    .box input + label:hover::before {
+        box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 8px 25px 0 rgba(0,0,0,0.19);
+    }
+    /*-----------------------------------------------radio---------------------------------------------------*/
+    .box input[type="radio"] {
+        display: none;
+    }
+
+    input[type="radio"] + label {
+        color: var(--black);
+        vertical-align: middle;
+    }
+
+    input[type="radio"] + label::before {
+        font-family: "PT Sans", sans-serif;
+        display: inline-block;
+        color: var(--black);
+        outline: none;
+        width: 50px;
+        height: 20px;
+        margin-right: 9px;
+        margin-bottom: 9px;
+        vertical-align: bottom;
+        border: 2px solid var(--black);
+        border-radius: 20px;
+    }
+    /*-----------------------------------------------radio---------------------------------------------------*/
+    /*-----------------------------------------------checkbox---------------------------------------------------*/
+    .box input[type="checkbox"] {
+        display: none;
+    }
+
+    input[type="checkbox"] + label {
+        color: var(--black);
+        vertical-align: middle;
+    }
+
+    input[type="checkbox"] + label::before {
+        font-family: "PT Sans", sans-serif;
+        display: inline-block;
+        color: var(--black);
+        outline: none;
+        width: 50px;
+        height: 20px;
+        margin-right: 9px;
+        margin-bottom: 9px;
+        vertical-align: bottom;
+        border: 1px solid var(--black);
+        border-radius: 3px;
+    }
+
+    .box input:checked + label::before {
+        background-color: var(--violet);
+        color: var(--black);
+    }
+    /*-----------------------------------------------checkbox---------------------------------------------------*/
+    /*-----------------------------------------------костыль---------------------------------------------------*/
+    input[id="age-10-id"] + label::before {
+	    content: "0-10";
+    }
+
+    input[id="age-20-id"] + label::before {
+	    content: "10-20";
+    }
+
+    input[id="age-30-id"] + label::before {
+	    content: "20-30";
+    }
+
+    input[id="age-40-id"] + label::before {
+	    content: "30-40";
+    }
+
+    input[id="age-50-id"] + label::before {
+	    content: "40-60";
+    }
+
+    input[id="age-60-id"] + label::before {
+	    content: "> 60";
+    }
+
+    input[id="var-2-id"] + label::before {
+	    content: "2";
+    }
+
+    input[id="var-3-id"] + label::before {
+	    content: "3";
+    }
+
+    input[id="var-4-id"] + label::before {
+	    content: "4";
+    }
+
+    input[id="var-5-id"] + label::before {
+	    content: "5";
+    }
+
+    input[id="var-6-id"] + label::before {
+	    content: "6";
+    }
+
+    input[id="one-id"] + label::before {
+	    content: "Выбор одного варианта";
+	    padding-bottom: 20px;
+    }
+    input[id="many-id"] + label::before {
+	    content: "Выбор нескольких вариантов";
+	    padding-bottom: 20px;
+    }
