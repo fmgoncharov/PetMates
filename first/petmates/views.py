@@ -65,11 +65,13 @@ def registration(request):
         username = request.POST.get('username-name')
         password = request.POST.get('password-name')
         if User.objects.filter(username=username).exists():
+            # bad e-mail, asking to try again
             context.update({
                 "email_taken": True,
             })
             return render(request, 'registration.html', context)
         else:
+            # everything ok, creating new user
             user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
             user.save()
         return redirect('/login')
@@ -127,16 +129,16 @@ def index(request):
                 # saving results in list as (breed, accuracy percent)
                 total_score.append((row['Порода собаки'], int(res / 11 * 100)))
 
-            # sorting list
+            # sorting final list
             total_score.sort(key=lambda x: x[1], reverse=True)
 
-            # appending percent sign
+            # adding percent sign
             total_score = list(map(lambda x: (x[0], str(x[1]) + '%'), total_score))
             # create dataframe from list
             dog_results = pd.DataFrame(data=total_score, columns=['Breed', 'Accuracy'])
             dog_results.index = np.arange(1, dog_results.shape[0] + 1)
 
-            # creating context for results.html page
+            # picking 5 best dogs for the user
             best_dogs = []
             for rank, row in dog_results.head(5).iterrows():
                 best_dogs.append(Dog(rank, row['Breed'], row['Accuracy']))
@@ -198,7 +200,7 @@ def preferences(request):
         cat_results = ''
         num_results = ''
         for category in categorical_values:
-            cat_results += request.POST.get(category.split()) + '-'
+            cat_results += request.POST.get(category) + '-'
         for value in numerical_values:
             num_results += request.POST.get(value) + '-'
         UserPreferences.objects.filter(user=request.user).delete()
