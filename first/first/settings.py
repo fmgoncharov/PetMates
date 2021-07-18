@@ -118,3 +118,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = 'staticroot/'
 
+LOGOUT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'

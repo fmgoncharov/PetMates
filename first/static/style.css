@@ -79,12 +79,6 @@
         left: 0;
     }
 
-    footer img {
-        height: 35px;
-        position: relative; /* Абсолютное позиционирование */
-        top: 10px; /* Положение от нижнего края */
-    }
-
     footer span {
         position: fixed; /* Абсолютное позиционирование */
         right: 20px; /* Положение от нижнего края */
@@ -97,6 +91,11 @@
         background: var(--lilac);
         font-family: "PT Sans", sans-serif;
     }
+
+    h1 {
+        text-align: center
+    }
+
 
     .box {
         width: 400px;
@@ -180,9 +179,9 @@
         transition: 0.25s;
         cursor: pointer;
         position: relative;
-        width: 88%;
+        width: 60%;
         top: 50%;
-        left: 6%;
+        left: 20%;
         background-color: var(--violet);
         box-shadow: 0 6px #999;
         outline: none;

@@ -7,32 +7,31 @@
     <meta charset="UTF-8">
     <title>PetMates</title>
 </head>
+
 {% include "header.html" %}
 <body>
 {% if found %}
-<h1>Объявления</h1>
+<h1>Избранное</h1>
     <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Название</th>
       <th scope="col">Цена</th>
       <th scope="col" style="text-align: center">Ссылка</th>
-      <th scope="col" style="text-align: center">Добавить в избранное</th>
     </tr>
   </thead>
   <tbody>
-    {% for advert in adverts %}
+    {% for advert in saved %}
     <tr>
-      <th scope="row">{{advert.title_}}</th>
-      <td>{{advert.price_}}</td>
-      <td><a href="{{advert.link_}}"><button>Посмотреть</button></a></td>
-      <td><form method="POST"> {% csrf_token %} <input hidden name="advert_id" value="{{advert.id_}}"><button type="submit">Сохранить</button></form></td>
+      <th scope="row">{{advert.title}}</th>
+      <td>{{advert.price}}</td>
+      <td><a href="{{advert.link}}"><button>Посмотреть</button></a></td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 {% else %}
-Ничего не нашлось
+Вы пока не добавили ни одной собаки в "Избранное"
 {% endif %}
 </body>
 {% include "footer.html" %}

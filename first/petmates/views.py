@@ -4,25 +4,27 @@ import numpy as np
 import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from .models import UserPreferences
+from .models import UserPreferences, Adverts
 from django.contrib.auth.models import User
 
 
 class WordCategory:
-    def __init__(self, options, name, ans=''):
+    def __init__(self, options, name, ans='', d=''):
         self.options_ = options
         self.name_ = name
         self.ans_ = ans
+        self.dog_ = d
 
 
 class NumericCategory:
-    def __init__(self, mi, ma, i, name, ans=3):
+    def __init__(self, mi, ma, i, name, ans='', d=''):
         self.min_ = mi
         self.max_ = ma
         self.mid_ = int((mi + ma + 1) / 2)
         self.id_ = i
         self.name_ = name
         self.ans_ = ans
+        self.dog_ = d
 
 
 class Dog:
@@ -33,7 +35,8 @@ class Dog:
 
 
 class Advert:
-    def __init__(self, title, price, link):
+    def __init__(self, id, title, price, link):
+        self.id_ = id
         self.title_ = title
         self.price_ = price
         self.link_ = link
@@ -216,14 +219,16 @@ def parse_data(breed):
     cards = tree.find_all('div', {'class': 'card-post'})
 
     data = []
+    i = 0
     for card in cards:
+        i += 1
         link = 'https://leboard.ru' + card.find('a').get('href')
         title = card.find('a').get('title')
         try:
             price = card.find('span', {'itemprop': 'price'}).text + ' руб.'
         except Exception:
             price = 'Цена не указана'
-        data.append(Advert(title, price, link))
+        data.append(Advert(i, title, price, link))
 
     return data
 
@@ -239,4 +244,63 @@ def adverts(request, breed):
         context.update({"found": False})
     else:
         context.update({"found": True, "adverts": data})
+
+    if request.method == 'POST':
+        ad_id = int(request.POST.get('advert_id'))-1
+        ad = Adverts.objects.create(user=request.user, title=data[ad_id].title_,
+                                     price=data[ad_id].price_, link=data[ad_id].link_)
+        ad.save()
     return render(request, 'adverts.html', context)
+
+
+def profile(request):
+    if request.user.id is None:
+        context = {"logged_in": False, }
+    else:
+        context = {"logged_in": True, "user": request.user, }
+    if Adverts.objects.filter(user=request.user).count() == 0:
+        context.update({"found": False})
+    else:
+        saved = Adverts.objects.filter(user=request.user)
+        context.update({"found": True, "saved": saved})
+    return render(request, 'profile.html', context)
+
+
+def dog(request, breed):
+    if request.user.id is None:
+        context = {"logged_in": False, }
+    else:
+        context = {"logged_in": True, "user": request.user, }
+
+    # loading excel file from static files with data about dog breeds
+    df = pd.DataFrame(pd.read_excel('staticroot/dogs_data.xlsx'))
+    # removing potential missing data
+    df.dropna(inplace=True)
+    line = df.loc[df['Порода собаки'] == breed]
+    categorical_values = ["Шерстный покров собаки", "Тип поведения", "Аллергия"]
+    numerical_values = df.drop(['Порода собаки'] + categorical_values, axis=1)
+
+    numerical_choices = []
+    word_choices = []
+    pref = UserPreferences.objects.get(user=request.user)
+    cat_results = list(pref.cat_pref.split('-'))
+    num_results = pref.num_pref.split('-')
+    num_results.pop()
+    num_results = list(map(int, num_results))
+    context = {"logged_in": True, "pref_filled": True}
+    for i, category in enumerate(categorical_values):
+        options = df[category].unique()
+        word = WordCategory(options, category, cat_results[i], line[category].values[0])
+        word_choices.append(word)
+
+    # creating choice classes for numerical values
+    for i, value in enumerate(numerical_values):
+        num = NumericCategory(df[value].min(), df[value].max(), i, value, num_results[i], line[value].values[0])
+        numerical_choices.append(num)
+
+    context.update({
+        "word_choices": word_choices,
+        "numerical_choices": numerical_choices,
+        "breed": breed,
+    })
+    return render(request, 'dog.html', context)

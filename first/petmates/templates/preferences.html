@@ -16,7 +16,6 @@
         {% for word in word_choices %}
             <label for="{{word.name_}}" class="form-label">{{word.name_}}:</label>
             <select required class="form-select" id="{{word.name_}}" name="{{word.name_}}">
-                <option disabled>Выберите</option>
                 {% for option in word.options_ %}
                 <option value="{{option}}">{{option}}</option>
                 {% endfor %}

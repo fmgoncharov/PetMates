@@ -23,7 +23,7 @@
     {% for dog in best_dogs %}
     <tr>
       <th scope="row">{{dog.rank_}}</th>
-      <td>{{dog.breed_}}</td>
+        <td><a href="dog/{{dog.breed_}}">{{dog.breed_}}</a></td>
       <td>{{dog.accuracy_}}</td>
     </tr>
     {% endfor %}
@@ -32,9 +32,8 @@
 <div class="container">
     <input type="hidden" name="type" value="2">
     <form method="post" class="row g-3"> {% csrf_token %}
-        <label for="breed" class="form-label">Выберите интересующую породу:
+        <label for="breed" class="form-label">Найти объявления по породе:
         <select required class="form-select" id="breed" name="breed">
-            <option disabled>Выберите</option>
             {% for dog in best_dogs %}
             <option value="{{dog.breed_}}">{{dog.breed_}}</option>
             {% endfor %}
@@ -53,12 +52,12 @@
         <fieldset>
             <legend style="font-size: 36px;">PetMates</legend>
             <p>
-                Проводите общественные голосования и участвуйте в них!
+                Измените свою жизнь в пару кликов!
                 <br>
-                Узнайте настоящее мнение общественности по разным вопросам!
+                Найдите преданного друга на долгие годы в считанные минуты!
             </p>
             <div class="half-width" style="border-right: 1px solid var(--black);">
-                <span style="font-size: 28px;">Почему именно мы?</span>
+                <span style="font-size: 28px;">Почему именно PetMates?</span>
                 <ul>
                     <li>Мы всегда выполняем работу хорошо</li>
                     <li>Мы не боимся собственных ошибок</li>
@@ -67,9 +66,8 @@
                 </ul>
             </div>
             <div class="half-width">
-                Заполните форму с вашими предпочтениями <a href="{% url 'preferences'%}">Форма</a>
+                <a href="{% url 'preferences'%}"><button>Расскажите о том, какую собаку вы ищите</button></a>
                 <br>
-                PASS <a href="">PASS</a>
             </div>
         </fieldset>
     </div>
@@ -85,12 +83,12 @@
         <fieldset>
             <legend style="font-size: 36px;">PetMates</legend>
             <p>
-                Проводите общественные голосования и участвуйте в них!
+                Измените свою жизнь в пару кликов!
                 <br>
-                Узнайте настоящее мнение общественности по разным вопросам!
+                Найдите преданного друга на долгие годы в считанные минуты!
             </p>
             <div class="half-width" style="border-right: 1px solid var(--black);">
-                <span style="font-size: 28px;">Почему именно мы?</span>
+                <span style="font-size: 28px;">Почему именно PetMates?</span>
                 <ul>
                     <li>Мы всегда выполняем работу хорошо</li>
                     <li>Мы не боимся собственных ошибок</li>

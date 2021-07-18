@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <meta charset="UTF-8">
+    <title>PetMates</title>
+</head>
+
+{% include "header.html" %}
+<body>
+
+<h1>Сравнение</h1>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col" style="text-align: center">Ваш предпочтения</th>
+      <th scope="col" style="text-align: center">{{breed}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for word in word_choices %}
+    <tr>
+      <th scope="row">{{word.name_}}</th>
+      <td style="text-align: center">{{word.ans_}}</td>
+      <td style="text-align: center">{{word.dog_}}</td>
+    </tr>
+    {% endfor %}
+    {% for num in numerical_choices %}
+    <tr>
+      <th scope="row">{{num.name_}}</th>
+      <td style="text-align: center">{{num.ans_}}</td>
+      <td style="text-align: center">{{num.dog_}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+</body>
+{% include "footer.html" %}
+</html>
