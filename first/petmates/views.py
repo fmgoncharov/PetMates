@@ -35,8 +35,8 @@ class Dog:
 
 
 class Advert:
-    def __init__(self, id, title, price, link):
-        self.id_ = id
+    def __init__(self, i, title, price, link):
+        self.id_ = i
         self.title_ = title
         self.price_ = price
         self.link_ = link
@@ -67,13 +67,14 @@ def registration(request):
             return render(request, 'registration.html', context)
         else:
             # everything ok, creating new user
-            user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name)
+            user = User.objects.create_user(username=username, password=password,
+                                            first_name=first_name, last_name=last_name)
             user.save()
         return redirect('/login')
     return render(request, 'registration.html', context)
 
 
-def ban(request):
+def ban():
     return redirect('/')
 
 
@@ -246,9 +247,9 @@ def adverts(request, breed):
         context.update({"found": True, "adverts": data})
 
     if request.method == 'POST':
-        ad_id = int(request.POST.get('advert_id'))-1
+        ad_id = int(request.POST.get('advert_id')) - 1
         ad = Adverts.objects.create(user=request.user, title=data[ad_id].title_,
-                                     price=data[ad_id].price_, link=data[ad_id].link_)
+                                    price=data[ad_id].price_, link=data[ad_id].link_)
         ad.save()
     return render(request, 'adverts.html', context)
 
