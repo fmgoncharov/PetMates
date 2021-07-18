@@ -23,7 +23,7 @@
             </select>
         {% endfor %}
         {% for num in numerical_choices %}
-            <label for="{{num.id_}}" class="form-label"> {{num.name_}}: </label> <output>{{num.mid_}}</output>
+            <label for="{{num.id_}}" class="form-label"> {{num.name_}}: </label> <output>{{num.ans_}}</output>
             {% if pref_filled %}
             <input type="range" min={{num.min_}} max={{num.max_}} name="{{num.name_}}" value={{num.ans_}} id="{{num.id_}}" class="form-range" oninput="this.previousElementSibling.value = this.value">
         {% else %}

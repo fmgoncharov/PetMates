@@ -1,17 +1,9 @@
 from django.shortcuts import render, redirect
 import pandas as pd
 import numpy as np
-from django.urls import reverse
-from tkinter import Tk, filedialog
-import ipywidgets as widgets
-import io
 import requests
 from bs4 import BeautifulSoup
-import time
 from fake_useragent import UserAgent
-from tqdm.notebook import trange, tqdm
-from urllib.parse import urlencode
-
 from .models import UserPreferences
 from django.contrib.auth.models import User
 
