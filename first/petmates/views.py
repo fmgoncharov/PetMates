@@ -302,5 +302,6 @@ def dog(request, breed):
         "word_choices": word_choices,
         "numerical_choices": numerical_choices,
         "breed": breed,
+        "link": 'https://www.google.com/search?q=' + breed,
     })
     return render(request, 'dog.html', context)
